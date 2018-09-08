@@ -1,0 +1,7 @@
+*book*
+*.out
+*~
+*video*
+*.dSYM
+*xcode-tests*
+*.o
