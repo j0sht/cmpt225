@@ -4,7 +4,8 @@ using namespace std;
 int main() {
     int x;
     cin >> x;
-    if (cin.peek() == '\n')
+    int c = cin.peek();
+    if (c == '\n' || (c == EOF && cin.good()))
 	if ((x % 2) == 0)
 	    cout << "Even";
 	else
