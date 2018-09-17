@@ -5,7 +5,7 @@ int main() {
     int x;
     cin >> x;
     int c = cin.peek();
-    if (c == '\n' || (c == EOF && cin.good()))
+    if (c != '.')
 	if ((x % 2) == 0)
 	    cout << "Even";
 	else
