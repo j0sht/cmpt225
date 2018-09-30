@@ -2,7 +2,7 @@
 using namespace std;
 
 // Input:
-//  - Two dimensional array A of size n*n
+//  - Two dimensional array A of size n*n (in this case, limited to 3*3)
 //  - Integers i, j, n, representing number of rows-1, columns-1, and n-1
 // Output:
 //  - Sum of integers in two dimensional array
