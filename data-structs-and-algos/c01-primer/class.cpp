@@ -5,8 +5,9 @@ using namespace std;
 class Counter {
 public:
     Counter(); // Initializer
-    int getCount(); // Returns count
-    void increaseBy(int n);
+    // const indicates that the function does not modify an instance
+    int getCount() const; // Returns count
+    void increaseBy(int n = 1);
     friend ostream& operator<<(ostream& outs, const Counter& counter);
 private:
     int count;
@@ -16,11 +17,11 @@ private:
 Counter::Counter() {
     count = 0;
 }
-int Counter::getCount() {
+int Counter::getCount() const {
     return count;
 }
 // If called w/o an argument, count will increase by 1
-void Counter::increaseBy(int n = 1) {
+void Counter::increaseBy(int n) {
     count += n;
 }
 
