@@ -159,9 +159,8 @@ int main() {
     //  in reverse order.
     cout << endl << stack.size() << endl;
     while (!stack.empty()) {
-	Elem s = stack.top();
-	cout << s;
-	temp.push(s);
+	cout << stack.top();
+	temp.push(stack.top());
 	stack.pop();
     }
     cout << endl;
