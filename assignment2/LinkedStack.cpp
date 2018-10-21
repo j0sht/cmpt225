@@ -1,101 +1,186 @@
-//============================================================================
+//==========================================================================
 // Name        : LinkedStack.cpp
 // Author      : Joshua Tate
 // Version     : 1
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
-//============================================================================
-
-
+//==========================================================================
 #include <cstdlib>
 #include <iostream>
 #include <string>
 using std::string;
 using namespace std;
 
-class StringNode {				        // a node in a list of strings
+// a node in a list of strings
+class StringNode {
 private:
-  string elem;				                // element value
-  StringNode* next;				        // next item in the list
+    // element value
+    string elem;
+    // next item in the list
+    StringNode* next;
 
-  friend class StringLinkedList;		        // provide StringLinkedList access
+    // provide StringLinkedList access
+    friend class StringLinkedList;
 };
 
-class StringLinkedList {			        // a linked list of strings
+// a linked list of strings
+class StringLinkedList {
 public:
-    StringLinkedList();				        // empty list constructor
-    ~StringLinkedList();			        // destructor
-    bool empty() const;				        // is list empty?
-    const string& front() const;		        // get front element
-    void addFront(const string& e);		        // add to front of list
-    void removeFront();				        // remove front item list
+    // empty list constructor
+    StringLinkedList();
+    // destructor
+    ~StringLinkedList();
+    // is list empty?
+    bool empty() const;
+    // get front element
+    const string& front() const;
+    // add to front of list
+    void addFront(const string& e);
+    // remove front item list
+    void removeFront();
 private:
-    StringNode* head;				        // pointer to the head of list
+    // pointer to the head of list
+    StringNode* head;
 };
 
-StringLinkedList::StringLinkedList() : head(NULL) {}	// constructor
+// constructor
+StringLinkedList::StringLinkedList() : head(NULL) {}
 
-StringLinkedList::~StringLinkedList() {			// destructor
+// destructor
+StringLinkedList::~StringLinkedList() {
     while (!empty())
 	removeFront();
 }
 
-bool StringLinkedList::empty() const {			// is list empty?
+// is list empty?
+bool StringLinkedList::empty() const {
     return head == NULL;
 }
 
-const string& StringLinkedList::front() const {		// get front elements
+// get front elements
+const string& StringLinkedList::front() const {
     return head->elem;
 }
 
-void StringLinkedList::addFront(const string& e) {	// add to front of list
-    StringNode* v = new StringNode;			// create new node
-    v->elem = e;					// store data
-    v->next = head;					// head now follows v
-    head = v;						// v is now the head
+// add to front of list
+void StringLinkedList::addFront(const string& e) {
+    // create new node
+    StringNode* v = new StringNode;
+    // store data
+    v->elem = e;
+    // head now follows v
+    v->next = head;
+    // v is now the head
+    head = v;
 }
 
-void StringLinkedList::removeFront() {		        // remove front item
-    StringNode* old = head;				// save current head
-    head = old->next;					// skip over old head
-    delete old;						// delete the old head
+// remove front item
+void StringLinkedList::removeFront() {
+    // save current head
+    StringNode* old = head;
+    // skip over old head
+    head = old->next;
+    // delete the old head
+    delete old;
 }
 
-typedef string Elem;				        // stack element type
-class LinkedStack {				        // stack as a linked list
+// stack element type
+typedef string Elem;
+
+// stack as a linked list
+class LinkedStack {
 public:
-    LinkedStack();				        // constructor
-    int size() const;				        // number of items in the stack
-    bool empty() const;			                // is the stack empty?
-    const Elem& top() const;	                        // the top element
-    void push(const Elem& e);  		                // push element onto stack
-    void pop();		                                // pop the stack
-private:                                	        // member data
-    StringLinkedList S;			                // linked list of elements
-    int n;					        // number of elements
+    // constructor
+    LinkedStack();
+    // number of items in the stack
+    int size() const;
+    // is the stack empty?
+    bool empty() const;
+    // the top element
+    const Elem& top() const;
+    // push element onto stack
+    void push(const Elem& e);
+    // pop the stack
+    void pop();
+private:
+    // member data
+    // linked list of elements
+    StringLinkedList S;
+    // number of elements
+    int n;
 };
 
-LinkedStack::LinkedStack() : S(), n(0) {}               // constructor
+// constructor
+LinkedStack::LinkedStack() : S(), n(0) {}
 
-bool LinkedStack::empty() const {
-    return n == 0;                                      // is the stack empty?
+// get size of the stack
+int LinkedStack::size() const {
+    return n;
 }
 
+// is the stack empty?
+bool LinkedStack::empty() const {
+    return n == 0;
+}
+
+// see element at top of the stack
 const Elem& LinkedStack::top() const {
     return S.front();
 }
 
-void LinkedStack::push(const Elem& e) {	                // push element onto stack
+// push element onto stack
+void LinkedStack::push(const Elem& e) {
     ++n;
     S.addFront(e);
 }
-						        // pop the stack
+
+// pop the stack
 void LinkedStack::pop() {
     --n;
     S.removeFront();
 }
 
+// main helper functions
+void printNameAndID();
+void sayGoodbye();
+
 int main() {
-    // your main code goes here
+    printNameAndID();
+
+    // Create instances of LinkedStack
+    LinkedStack stack, temp;
+
+    // Read lines and store in stack
+    Elem input;
+    while (getline(cin, input) && input != "\0")
+	stack.push(input);
+
+    // Print stack size and print concatenation of Elems
+    //  in reverse order.
+    cout << endl << stack.size() << endl;
+    while (!stack.empty()) {
+	Elem s = stack.top();
+	cout << s;
+	temp.push(s);
+	stack.pop();
+    }
+    cout << endl;
+
+    // Print Elems in original order
+    while (!temp.empty()) {
+	cout << temp.top() << endl;
+	temp.pop();
+    }
+
+    sayGoodbye();
     return EXIT_SUCCESS;
+}
+
+void printNameAndID() {
+    cout << "Joshua Tate\n"
+	 << "jmtate\n"
+	 << "301280241\n";
+}
+void sayGoodbye() {
+    cout << "goodbye\n";
 }
