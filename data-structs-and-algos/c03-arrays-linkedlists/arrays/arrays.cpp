@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 class GameEntry {
@@ -18,14 +19,12 @@ int GameEntry::getScore() const { return score; }
 
 class IndexOutOfBounds {
 public:
-    IndexOutOfBounds(string& msg);
+    IndexOutOfBounds(const string& msg);
     friend ostream& operator<<(ostream& outs, IndexOutOfBounds& e);
 private:
     string msg;
 };
-IndexOutOfBounds::IndexOutOfBounds(string& msg) {
-    this->msg = msg;
-}
+IndexOutOfBounds::IndexOutOfBounds(const string& s): msg(s) {}
 ostream& operator<<(ostream& outs, IndexOutOfBounds& e) {
     outs << e.msg;
     return outs;
@@ -78,7 +77,7 @@ void Scores::add(const GameEntry& e) {
 
 GameEntry Scores::remove(int i) throw (IndexOutOfBounds) {
     if ((i < 0) || (i >= numEntries)) // invalid index
-	throw IndexOutOfBounds("Invalid index");
+	throw IndexOutOfBounds(string("Invalid index"));
     GameEntry e = entries[i]; // save the removed object
     for (int j = i+1; j < numEntries; j++)
 	entries[j-1] = entries[j]; // Shift entries left
