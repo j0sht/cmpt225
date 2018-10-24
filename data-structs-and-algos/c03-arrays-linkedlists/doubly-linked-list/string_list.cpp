@@ -124,25 +124,25 @@ ostream& operator<<(ostream& outs, const DoublyLinkedList& list) {
 }
 
 int main() {
-    DoublyLinkedList list;
-    list.addFront("BOS");
-    list.addFront("ATL");
-    list.addFront("MSP");
-    list.addFront("LAX");
-    list.addBack("YVR");
-    list.addFront("YEG");
-    cout << list << endl;
-    list.removeBack(); // Remove YVR
-    cout << list << endl;
-    list.removeFront(); // Remove YEG
-    cout << list << endl;
-    list.removeBack(); // Remove BOS
-    cout << list << endl;
-    list.removeBack(); // Remove ATL
-    cout << list << endl;
-    list.removeFront(); // Remove LAX
-    cout << list << endl;
-    list.removeBack(); // Remove MSP
-    cout << list << endl;
-    return 0;
+  DoublyLinkedList list;
+  list.addFront("BOS");
+  list.addFront("ATL");
+  list.addFront("MSP");
+  list.addFront("LAX");
+  list.addBack("YVR");
+  list.addFront("YEG");
+  cout << list << endl;
+  list.removeBack(); // Remove YVR
+  cout << list << endl;
+  list.removeFront(); // Remove YEG
+  cout << list << endl;
+  list.removeBack(); // Remove BOS
+  cout << list << endl;
+  list.removeBack(); // Remove ATL
+  cout << list << endl;
+  list.removeFront(); // Remove LAX
+  cout << list << endl;
+  list.removeBack(); // Remove MSP
+  cout << list << endl;
+  return 0;
 }
