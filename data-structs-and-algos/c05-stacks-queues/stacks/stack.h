@@ -20,8 +20,7 @@ public:
   const E& top() const throw(StackEmpty);
   void push(const E& e);
   void pop() throw(StackEmpty);
-
-  friend ostream& operator<<(ostream& outs, const Stack<E>& s);
+  void printStack();
 private:
   LinkedList<E>* list;
   int n;
@@ -61,18 +60,17 @@ void Stack<E>::pop() throw(StackEmpty) {
   n--;
 }
 template <typename E>
-ostream& operator<<(ostream& outs, Stack<E>& s) {
+void Stack<E>::printStack() {
   Stack<E> temp;
-  outs << "Stack:\n";
-  while (!s.empty()) {
-    outs << "  " << s.top() << endl;
-    temp.push(s.top());
-    s.pop();
+  cout << "Stack:\n";
+  while (!empty()) {
+    cout << "  " << top() << endl;
+    temp.push(top());
+    pop();
   }
   while (!temp.empty()) {
-    s.push(temp.top());
+    push(temp.top());
     temp.pop();
-  }
-  return outs;
+  };
 }
 #endif

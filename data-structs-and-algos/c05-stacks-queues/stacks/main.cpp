@@ -12,11 +12,14 @@ int main() {
   cout << "Top of stack: " << s.top() << endl;
   cout << "Stack size = " << s.size() << endl;
   s.pop();
-  cout << "\nAfter pop:\n" << s;
+  cout << "After pop:\n";
+  s.printStack();
   s.push(8);
-  cout << "Pushing 8\n" << s;
+  cout << "Pushing 8\n";
+  s.printStack();
   s.pop();
-  cout << "\nAfter pop:\n" << s;
+  cout << "After pop:\n";
+  s.printStack();
   cout << "Top of stack: " << s.top() << endl;
   return 0;
 }
