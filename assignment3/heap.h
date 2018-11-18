@@ -73,8 +73,12 @@ private:
 
   // Index for parent of index i
   int parent(int i) { return (i-1)/2; }
+  // Index for left child of index i
   int leftChild(int i) { return (2*i)+1; }
+  // Index for right child of index i
   int rightChild(int i) { return (2*i)+2; }
+  // Index of min child
+  int minChild(int i);
 };
 
 Heap::Heap(){
@@ -139,12 +143,19 @@ void Heap::insert(int element, int priority){
 // Initial call should be trickleUp(hSize-1).
 void Heap::trickleUp(int i){
   // Complete this.
-  while (i > 0) {
-    if (A[i].priority < A[parent(i)].priority)
-      swap(i, parent(i));
-    else
-      break;
-    i = parent(i);
+  // while (i > 0) {
+  //   if (A[i].priority < A[parent(i)].priority)
+  //     swap(i, parent(i));
+  //   else
+  //     break;
+  //   i = parent(i);
+  // }
+  // BASE CASE: i = 0 or A[parent(i)].priority < A[i].priority
+  if (i == 0 || A[parent(i)].priority < A[i].priority)
+    return; // Nothing to do
+  else {
+    swap(i, parent(i));
+    return trickleUp(parent(i));
   }
 }
 
@@ -159,8 +170,10 @@ void Heap::swap(int i, int j){
 int Heap::extractMin(){
   // Complete this.
   int element = A[0].element;
-  
+  A[0] = A[hSize-1];
+  hSize--;
   trickleDown(0);
+  return element;
 }
 
 // Repairs the heap ordering invariant after replacing the root.
@@ -169,7 +182,12 @@ int Heap::extractMin(){
 // (heapify() calls trickleDown(i) for i from (hSize/2)-1 down to 0.)
 void Heap::trickleDown(int i){
   // Complete this.
-  
+  while (leftChild(i) <= hSize) {
+    int min = minChild(i);
+    if (A[i].priority > A[min].priority)
+      swap(i, min);
+    i = min;
+  }
 }
 
 // Turns A[0] .. A[size-1] into a heap.
@@ -179,6 +197,17 @@ void Heap::heapify(){
 
 void Heap::print() {
   for (int i = 0; i < hSize; i++) {
-    cout << "Element " << i << ": P(" << A[i].element << ", " << A[i].priority << ")\n";
+    cout << "Element " << i << ": P(" << A[i].element << ", "
+	 << A[i].priority << ")\n";
   }
+}
+
+int Heap::minChild(int i) {
+  if (rightChild(i) > hSize)
+    return leftChild(i);
+  else
+    if (A[leftChild(i)].priority < A[rightChild(i)].priority)
+      return leftChild(i);
+    else
+      return rightChild(i);
 }
