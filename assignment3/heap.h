@@ -1,4 +1,3 @@
-#include <iostream>
 /******************************************************
   Heap.h -- Declarations for Basic Heap-of-Pair-of-Ints Class
 
@@ -44,8 +43,6 @@ public:
   void insert( int element, int priority ); // Insert the pair <element,priority>.
   int extractMin(); // Remove and return the highest (minimum) priority element.
 
-  // Debug print
-  void print();
 private:
   class Pair{
   public:
@@ -106,14 +103,10 @@ Heap::Heap( const int * Priorities, const int * Elements, int s, int c){
 
 // New Heap with combined contents and of the two given heaps.
 Heap::Heap( const Heap & Heap1, const Heap & Heap2, int c ){ 
-  hCapacity = Heap1.hSize + Heap2.hSize + c ;
+  hCapacity = Heap1.hSize + Heap2.hSize + c;
+  // Complete this.
   A = new Pair[hCapacity];
   hSize = 0;
-  // Complete this.
-  // for (int i = 0; i < Heap1.size(); i++)
-  //   insert(Heap1.A[i].element, Heap1.A[i].priority);
-  // for (int i = 0; i < Heap2.size(); i++)
-  //   insert(Heap2.A[i].element, Heap2.A[i].priority);
   int n = Heap1.hSize;
   for (int i = 0; i < n; i++) {
     A[i] = Heap1.A[i];
@@ -143,13 +136,6 @@ void Heap::insert(int element, int priority){
 // Initial call should be trickleUp(hSize-1).
 void Heap::trickleUp(int i){
   // Complete this.
-  // while (i > 0) {
-  //   if (A[i].priority < A[parent(i)].priority)
-  //     swap(i, parent(i));
-  //   else
-  //     break;
-  //   i = parent(i);
-  // }
   // BASE CASE: i = 0 or A[parent(i)].priority < A[i].priority
   if (i == 0 || A[parent(i)].priority < A[i].priority)
     return; // Nothing to do
@@ -172,7 +158,8 @@ int Heap::extractMin(){
   int element = A[0].element;
   A[0] = A[hSize-1];
   hSize--;
-  trickleDown(0);
+  if (hSize > 1)
+    trickleDown(0);
   return element;
 }
 
@@ -182,11 +169,15 @@ int Heap::extractMin(){
 // (heapify() calls trickleDown(i) for i from (hSize/2)-1 down to 0.)
 void Heap::trickleDown(int i){
   // Complete this.
-  while (leftChild(i) <= hSize) {
+  // BASE CASE: (leftChild(i) > hSize) ||
+  //            (A[i].priority < A[minChild(i)].priority)
+  if ((leftChild(i) > hSize) ||
+      (A[i].priority < A[minChild(i)].priority))
+    return;
+  else {
     int min = minChild(i);
-    if (A[i].priority > A[min].priority)
-      swap(i, min);
-    i = min;
+    swap(i, min);
+    return trickleDown(min);
   }
 }
 
@@ -195,15 +186,8 @@ void Heap::heapify(){
   for( int i = (hSize/2)-1; i>=0 ; i-- ) trickleDown(i);  
 }
 
-void Heap::print() {
-  for (int i = 0; i < hSize; i++) {
-    cout << "Element " << i << ": P(" << A[i].element << ", "
-	 << A[i].priority << ")\n";
-  }
-}
-
 int Heap::minChild(int i) {
-  if (rightChild(i) > hSize)
+  if (rightChild(i) >= hSize)
     return leftChild(i);
   else
     if (A[leftChild(i)].priority < A[rightChild(i)].priority)
