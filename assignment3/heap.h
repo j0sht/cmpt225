@@ -85,6 +85,7 @@ Heap::Heap(){
 }
 
 Heap::Heap(int c){ // New empty Heap with capacity c.
+  // Complete this.
   hCapacity = c;
   A = new Pair[hCapacity];
   hSize = 0;
@@ -107,8 +108,10 @@ Heap::Heap( const Heap & Heap1, const Heap & Heap2, int c ){
   // Complete this.
   A = new Pair[hCapacity];
   hSize = 0;
-  for (; hSize < Heap1.hSize; hSize++) A[hSize] = Heap1.A[hSize];
-  for (int i = 0; i < Heap2.hSize; i++, hSize++) A[hSize] = Heap2.A[i];
+  for (; hSize < Heap1.hSize; hSize++)
+    A[hSize] = Heap1.A[hSize];
+  for (int i = 0; i < Heap2.hSize; i++, hSize++)
+    A[hSize] = Heap2.A[i];
   heapify();
 }
 
@@ -129,7 +132,6 @@ void Heap::insert(int element, int priority){
 // Initial call should be trickleUp(hSize-1).
 void Heap::trickleUp(int i){
   // Complete this.
-  // BASE CASE: i = 0 or A[parent(i)].priority < A[i].priority
   if (i == 0 || A[parent(i)].priority < A[i].priority)
     return; // Nothing to do
   else {
