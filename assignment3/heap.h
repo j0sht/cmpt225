@@ -107,15 +107,8 @@ Heap::Heap( const Heap & Heap1, const Heap & Heap2, int c ){
   // Complete this.
   A = new Pair[hCapacity];
   hSize = 0;
-  int n = Heap1.hSize;
-  for (int i = 0; i < n; i++) {
-    A[i] = Heap1.A[i];
-    hSize++;
-  }
-  for (int i = 0; i < Heap2.hSize; i++) {
-    A[n+i] = Heap2.A[i];
-    hSize++;
-  }
+  for (; hSize < Heap1.hSize; hSize++) A[hSize] = Heap1.A[hSize];
+  for (int i = 0; i < Heap2.hSize; i++, hSize++) A[hSize] = Heap2.A[i];
   heapify();
 }
 
@@ -141,7 +134,7 @@ void Heap::trickleUp(int i){
     return; // Nothing to do
   else {
     swap(i, parent(i));
-    return trickleUp(parent(i));
+    trickleUp(parent(i));
   }
 }
 
@@ -169,15 +162,13 @@ int Heap::extractMin(){
 // (heapify() calls trickleDown(i) for i from (hSize/2)-1 down to 0.)
 void Heap::trickleDown(int i){
   // Complete this.
-  // BASE CASE: (leftChild(i) > hSize) ||
-  //            (A[i].priority < A[minChild(i)].priority)
   if ((leftChild(i) > hSize) ||
       (A[i].priority < A[minChild(i)].priority))
     return;
   else {
     int min = minChild(i);
     swap(i, min);
-    return trickleDown(min);
+    trickleDown(min);
   }
 }
 
