@@ -1,1 +1,32 @@
 301280241 jmtate Joshua Tate
+
+Description:
+    - My solution to the assignment runs in two phases:
+        First phase:
+	    - Read list of integers into two STL priority queues, where
+	      lists are separated by the value 0.
+	    - The first phase uses an STL map to ignore any repeated values
+	      before inserting them into the proper queues.
+	    - The first phase is implemented via the function
+	      'readAndStoreIn(p1, p2)', where p1 and p2 are STL
+	      priority_queues.
+        Second phase:
+	    - Implemented via the function 'printLargest(p1, p2)' where p1 and
+	      p2 are STL priority_queues.
+	    - Repeatedly check if p1.top() is less than or equal to p2.top().
+	        - If p1.top() is equal to p2.top(), pop the top of both
+		  p1 and p2.
+		- Else pop p2.
+		- Continue while both p1 and p2 are non-empty.
+	    - Once loop terminates, either p1 or p2 (or both) are empty, or
+	      p1.top() is greater than any int in p2.
+	        - If p1 is not empty, p1.top() must be the largest element in
+		  p1 not in p2. Print the value "p1.top()".
+		- If p1 is empty, no value was found such that it was the
+		  largest element in p1 that was not in p2. Print "NONE".
+    - The solution requires the STL libraries iostream, queue, and map. No
+      other external libraries or code is required.
+    - All code used to implement the solution is provided in a4.cpp.
+    - The executable can be created by invoking the command "make all",
+      with the Makefile included in the submission. The command "make clean"
+      removes the executable.
