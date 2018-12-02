@@ -1,2 +1,2 @@
-a4: a4.cpp
+all: a4.cpp
 	g++ -Wall a4.cpp -o a4
