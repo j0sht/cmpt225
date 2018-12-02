@@ -6,8 +6,6 @@ using namespace std;
 
 void readFileAndStoreIn(priority_queue<int>& p1, priority_queue<int>& p2);
 void printLargest(priority_queue<int>& p1, priority_queue<int>& p2);
-// used for debugging
-void printQueues(const priority_queue<int>& p1, const priority_queue<int>& p2);
 
 /* MAIN */
 int main() {
@@ -54,29 +52,4 @@ void printLargest(priority_queue<int>& p1, priority_queue<int>& p2) {
     cout << p1.top() << endl;
   else
     cout << "NONE\n";
-}
-
-void printQueues(const priority_queue<int>& p1, const priority_queue<int>& p2) {
-  priority_queue<int> tmp = p1;
-  if (!p1.empty()) {
-    cout << "p1: ";
-    while (!tmp.empty()) {
-      if (tmp.size() > 1)
-	cout << tmp.top() << ", ";
-      else
-	cout << tmp.top() << endl;
-      tmp.pop();
-    }
-  }
-  if (!p2.empty()) {
-    cout << "p2: ";
-    tmp = p2;
-    while (!tmp.empty()) {
-      if (tmp.size() > 1)
-	cout << tmp.top() << ", ";
-      else
-	cout << tmp.top() << endl;
-      tmp.pop();
-    }
-  }
 }
