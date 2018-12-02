@@ -13,7 +13,7 @@ int main() {
   priority_queue<int> p2;
   cout << "301280241 jmtate Joshua Tate\n";
   readFileAndStoreIn(p1, p2);
-  printLargest(p1,p2);
+  printLargest(p1, p2);
   return 0;
 }
 /* END MAIN */
