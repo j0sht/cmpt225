@@ -31,11 +31,10 @@ void readAndStoreIn(priority_queue<int>& p1, priority_queue<int>& p2) {
       List2 = true;
       values = map<int, int>();
     } else {
-      if (List2) {
-	if (values.count(x) == 0)
+      if (values.count(x) == 0) {
+	if (List2)
 	  p2.push(x);
-      } else {
-	if (values.count(x) == 0)
+	else
 	  p1.push(x);
       }
     }
